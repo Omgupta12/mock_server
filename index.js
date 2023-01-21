@@ -4,6 +4,7 @@ const express = require('express')
 const cors = require("cors")
 const dbConnect = require('./config/db')
 const UserRoute = require("./routes/user.routes")
+const CalculatorRoute = require("./routes/calculator.routes")
 
 const app = express()
 app.use(express.urlencoded({extended: true}))
@@ -13,6 +14,7 @@ app.use(cors())
 
 app.get('/', (req, res) => res.send('server running'))
 app.use("/user",UserRoute)
+app.use("/calulator",CalculatorRoute)
 
 
 app.listen(port, async() => {
