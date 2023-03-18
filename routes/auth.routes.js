@@ -20,7 +20,7 @@ app.post("/login", async (request, response) => {
       user.password === password ||
       (await argon2.verify(user.password, password))
     ) {
-      const jwtToken = jwt.sign({ username, email },123456, {
+      const jwtToken = jwt.sign({ username, email },"123456", {
         expiresIn: "10 days",
       });
       return response
