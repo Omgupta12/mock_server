@@ -1,5 +1,5 @@
 require("dotenv").config()
-const port = process.env.PORT||5000
+const port = process.env.PORT||8000
 const express = require('express')
 const cors = require("cors")
 const dbConnect = require('./config/db')
@@ -15,7 +15,6 @@ app.use(cors())
 app.get('/', (req, res) => res.send('server running'))
 app.use("/user",UserRoute)
 app.use("/calulator",CalculatorRoute)
-
 
 app.listen(port, async() => {
     await dbConnect()
