@@ -1,22 +1,24 @@
 require("dotenv").config()
 const port = process.env.PORT||8000
-const express = require('express')
+const express = require("express");
+const dbConnect = require("./config/db");
+const authRoutes = require("./routes/auth.routes");
+const productsRoutes = require("./routes/products.routes");
 const cors = require("cors")
-const dbConnect = require('./config/db')
-const UserRoute = require("./routes/user.routes")
-const CalculatorRoute = require("./routes/calculator.routes")
 
-const app = express()
-app.use(express.urlencoded({extended: true}))
-app.use(express.json())
+const app = express();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(cors())
 
+// <<<<<<<<<<<<<<<<--- ROUTES --->>>>>>>>>>>>>>>
+app.get("/", (req, res) => res.send("server running"));
+app.use("/auth", authRoutes);
+app.use("/products", productsRoutes);
 
-app.get('/', (req, res) => res.send('server running'))
-app.use("/user",UserRoute)
-app.use("/calulator",CalculatorRoute)
 
-app.listen(port, async() => {
-    await dbConnect()
-    console.log(`server started on ${port}`)
-})
+app.listen(port, async () => {
+  await dbConnect();
+  console.log(`server started on port ${port}`);
+});
